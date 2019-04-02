@@ -25,20 +25,15 @@ class MainActivity : AppCompatActivity() {
 
                 val commonlyUsedPorts = intArrayOf(22, 80, 443, 3306, 21, 25, 53, 8080, 8988, 9999)
                 for (port in commonlyUsedPorts) {
-                    //val worker = Thread(PortScan(this.scrollView2.portScanResults, host, port))
                     val worker = PortScan(this.scrollView2.portScanResults, host, port)
                     executor.execute(worker)
                 }
-
                 executor.shutdown()
-//                while (!executor.isTerminated()) { // This will lock up UI thread
-//                    // Threads are still running
-//                }
-
                 return@OnNavigationItemSelectedListener false
             }
             R.id.navigation_settings -> {
                 // Replace screen fragment with settings
+                // setContentView()?
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -48,11 +43,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-        this.scrollView2.portScanResults.setText("Hello!\nNo results yet.\nStart a scan.")
     }
-
 
 }
