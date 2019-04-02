@@ -12,3 +12,13 @@ Source code
 -----------
 
 https://github.com/DevDungeon/AndroidPortScanner.git
+
+
+To do
+-----
+- Change 3rd tab title to 'Settings'
+- When 3rd tab is pressed, load settings layout fragment
+- In the 3rd tab, have editable settings
+	- The ip/range to scan
+	- The list of ports to scan
+

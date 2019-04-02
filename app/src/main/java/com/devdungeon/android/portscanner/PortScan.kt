@@ -3,11 +3,11 @@ package com.devdungeon.android.portscanner
 import android.widget.EditText
 import java.net.Socket
 
-class PortScan(val results: EditText, val portNumber: Int) : Thread() {
+class PortScan(val results: EditText, val host: String, val portNumber: Int) : Thread() {
 
         override fun run() {
             try {
-                val sock = Socket("www.devdungeon.com", portNumber)
+                val sock = Socket(host, portNumber)
                 if (sock.isConnected) {
                     results.post(Runnable() {
                         val newMessage = "${results.text}" + "\n" +
@@ -16,19 +16,19 @@ class PortScan(val results: EditText, val portNumber: Int) : Thread() {
                     })
                     sock.close()
                 } else {
-//                    results.post(Runnable() {
-//                        val newMessage = "${results.text}" + "\n" +
-//                                "$portNumber is not connected."
-//                        results.setText(newMessage)
-//                    })
+                    results.post(Runnable() {
+                        val newMessage = "${results.text}" + "\n" +
+                                "$portNumber is not connected."
+                        results.setText(newMessage)
+                    })
                 }
 
             } catch (e: Exception) {
-//                results.post(Runnable() {
-//                    val newMessage = "${results.text}" + "\n" +
-//                            "$portNumber is N/A."
-//                    results.setText(newMessage)
-//                })
+                results.post(Runnable() {
+                    val newMessage = "${results.text}" + "\n" +
+                            "$portNumber is N/A."
+                    results.setText(newMessage)
+                })
             }
         }
     }
